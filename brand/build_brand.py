@@ -92,6 +92,12 @@ def build():
         body = f'<g transform="translate(0,{(h - 200) / 2})">{placed_mark(pad, 0, mark_size, **kw)}{text}</g>'
         write(variant, svg(w, h, body), w * 2)
 
+    # Text-only wordmark, for headers that already show the logo next to it.
+    text, tw = wordmark_text(pad, 140, size, DEEP_LAKE, EMBER_DARK)
+    w = int(tw + 2 * pad)
+    h = round(w / 5)
+    write("wordmark-text", svg(w, h, f'<g transform="translate(0,{(h - 200) / 2})">{text}</g>'), w * 2)
+
     # Cover image: square, dark, mark + stacked name + tagline over a faint chart grid.
     s = 1200
     grid = "".join(f'<line x1="0" y1="{y}" x2="{s}" y2="{y}" stroke="{MIST}" '

@@ -39,7 +39,7 @@ Quick note: we renamed the newsletter from AI/BI Lakehouse to Lakehouse Analytic
 | Setting | File | Notes |
 |---|---|---|
 | Publication logo | `logo.png` (1024x1024) | Substack minimum is 256x256 |
-| Wordmark (header) | `wordmark.png` (5:1) | Transparent; `wordmark-light.png` only for a dark background |
+| Wordmark (header) | `wordmark-text.png` (5:1) | Text only, since the logo already sits left of it; `wordmark.png` includes the mark; `wordmark-light.png` only on dark backgrounds |
 | Background color | `#F5EFE6` (Sand) | Applies to the whole site, so stay light for readability |
 | Cover image | `cover.png` (1200x1200) | Substack minimum is 600x600 |
 | Wide image fields (min 3:2) | `cover-wide.png` (1920x1200) | 16:10 version of the cover |

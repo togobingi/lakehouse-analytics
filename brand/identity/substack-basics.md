@@ -39,7 +39,9 @@ Quick note: we renamed the newsletter from AI/BI Lakehouse to Lakehouse Analytic
 | Setting | File | Notes |
 |---|---|---|
 | Publication logo | `logo.png` (1024x1024) | Substack minimum is 256x256 |
-| Wordmark (header) | `wordmark.png` | Transparent; use `wordmark-light.png` with a dark theme |
+| Wordmark (header) | `wordmark.png` (5:1) | Transparent; `wordmark-light.png` only for a dark background |
+| Background color | `#F5EFE6` (Sand) | Applies to the whole site, so stay light for readability |
 | Cover image | `cover.png` (1200x1200) | Substack minimum is 600x600 |
+| Wide image fields (min 3:2) | `cover-wide.png` (1920x1200) | 16:10 version of the cover |
 | Email banner | `email-banner.png` (2200x440) | 2x of Substack's 1100x220 |
-| Theme accent color | `#FF7A45` (Ember) | Or `#22B0A0` (Lagoon) if Ember feels too loud on buttons |
+| Theme accent color | `#D9531E` (Ember Dark) | White button text stays readable (4.0:1); plain Ember is only 2.6:1 |

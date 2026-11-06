@@ -109,6 +109,23 @@ def build():
                f'font-size="40" font-weight="400" fill="{MIST}">{TAGLINE}</text>')
     write("cover", svg(s, s, cover, bg=DEEP_LAKE), s)
 
+    # Wide cover: 16:10 for upload fields that require at least 3:2.
+    w, h = 1920, 1200
+    grid = "".join(f'<line x1="0" y1="{y}" x2="{w}" y2="{y}" stroke="{MIST}" '
+                   f'stroke-opacity="0.06" stroke-width="2"/>' for y in range(100, h, 100))
+    ghost_bars = "".join(
+        f'<rect x="{x}" y="{h - bh}" width="70" height="{bh}" rx="10" fill="{LAGOON}" '
+        f'fill-opacity="0.08"/>'
+        for x, bh in zip(range(40, w, 100), range(100, 1000, 22)))
+    cover_wide = (grid + ghost_bars + placed_mark(153, 378, 440)
+                  + f'<text x="633" y="510" font-family="{FONT}" font-size="150" '
+                    f'font-weight="600" fill="{SAND}">Lakehouse</text>'
+                  + f'<text x="633" y="670" font-family="{FONT}" font-size="150" '
+                    f'font-weight="500" fill="{EMBER}">Analytics</text>'
+                  + f'<text x="637" y="780" font-family="{FONT}" font-size="44" '
+                    f'font-weight="400" fill="{MIST}">{TAGLINE}</text>')
+    write("cover-wide", svg(w, h, cover_wide, bg=DEEP_LAKE), w)
+
     # Email banner: 1100x220 per Substack, exported at 2x.
     text, tw = wordmark_text(220, 118, 72, DEEP_LAKE, EMBER_DARK)
     banner = (placed_mark(50, 20, 180, bars=(DEEP_LAKE, DEEP_LAKE, LAGOON)) + text

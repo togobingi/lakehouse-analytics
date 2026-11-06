@@ -98,6 +98,13 @@ def build():
     h = round(w / 5)
     write("wordmark-text", svg(w, h, f'<g transform="translate(0,{(h - 200) / 2})">{text}</g>'), w * 2)
 
+    # Same, with the tagline underneath, sized to the width of the name.
+    tag_size = int(44 * tw / text_width(TAGLINE, 44, "400"))
+    h = round(w / 4)
+    tagline = (f'<text x="{pad + 3}" y="220" font-family="{FONT}" font-size="{tag_size}" '
+               f'font-weight="400" fill="{SLATE}">{TAGLINE}</text>')
+    write("wordmark-tagline", svg(w, h, f'<g transform="translate(0,{h / 2 - 144})">{text}{tagline}</g>'), w * 2)
+
     # Cover image: square, dark, mark + stacked name + tagline over a faint chart grid.
     s = 1200
     grid = "".join(f'<line x1="0" y1="{y}" x2="{s}" y2="{y}" stroke="{MIST}" '

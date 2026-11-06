@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1399" height="200" viewBox="0 0 1399 200"><g transform="translate(24,0) scale(0.78125)">
+<svg xmlns="http://www.w3.org/2000/svg" width="1399" height="280" viewBox="0 0 1399 280"><g transform="translate(0,40.0)"><g transform="translate(24,0) scale(0.78125)">
   <polyline points="56,118 128,60 200,118" fill="none" stroke="#FF7A45" stroke-width="20"
             stroke-linecap="round" stroke-linejoin="round"/>
   <rect x="86" y="152" width="24" height="26" rx="4" fill="#0E2A33"/>
   <rect x="116" y="132" width="24" height="46" rx="4" fill="#0E2A33"/>
   <rect x="146" y="112" width="24" height="66" rx="4" fill="#22B0A0"/>
   <path d="M60 200 q17 -12 34 0 t34 0 t34 0 t34 0" fill="none" stroke="#22B0A0"
-        stroke-width="10" stroke-linecap="round"/></g><text x="252" y="140" font-family="Avenir Next" font-size="120" font-weight="600" fill="#0E2A33">Lakehouse</text><text x="880.06875" y="140" font-family="Avenir Next" font-size="120" font-weight="500" fill="#D9531E">Analytics</text></svg>
+        stroke-width="10" stroke-linecap="round"/></g><text x="252" y="140" font-family="Avenir Next" font-size="120" font-weight="600" fill="#0E2A33">Lakehouse</text><text x="880.06875" y="140" font-family="Avenir Next" font-size="120" font-weight="500" fill="#D9531E">Analytics</text></g></svg>

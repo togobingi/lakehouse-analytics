@@ -80,6 +80,7 @@ def build():
     write("logo-transparent-light", svg(256, 256, mark()), 1024)
 
     # Wordmark: mark + name, transparent, for the Substack header.
+    # Substack caps wordmarks at 21:4, so the canvas is padded to 5:1.
     size, pad, mark_size = 120, 24, 200
     for variant, first, second, kw in [
         ("wordmark", DEEP_LAKE, EMBER_DARK, {"bars": (DEEP_LAKE, DEEP_LAKE, LAGOON)}),
@@ -87,7 +88,9 @@ def build():
     ]:
         text, tw = wordmark_text(pad + mark_size + 28, 140, size, first, second)
         w = int(pad + mark_size + 28 + tw + pad)
-        write(variant, svg(w, 200, placed_mark(pad, 0, mark_size, **kw) + text), w * 2)
+        h = round(w / 5)
+        body = f'<g transform="translate(0,{(h - 200) / 2})">{placed_mark(pad, 0, mark_size, **kw)}{text}</g>'
+        write(variant, svg(w, h, body), w * 2)
 
     # Cover image: square, dark, mark + stacked name + tagline over a faint chart grid.
     s = 1200

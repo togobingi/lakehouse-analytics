@@ -5,4 +5,4 @@
   <rect x="116" y="132" width="24" height="46" rx="4" fill="#0E2A33"/>
   <rect x="146" y="112" width="24" height="66" rx="4" fill="#22B0A0"/>
   <path d="M60 200 q17 -12 34 0 t34 0 t34 0 t34 0" fill="none" stroke="#22B0A0"
-        stroke-width="10" stroke-linecap="round"/></g><text x="220" y="118" font-family="Avenir Next" font-size="72" font-weight="600" fill="#0E2A33">Lakehouse</text><text x="596.8475" y="118" font-family="Avenir Next" font-size="72" font-weight="500" fill="#D9531E">Analytics</text><text x="222" y="170" font-family="Avenir Next" font-size="30" font-weight="400" fill="#5C6E75">BI, semantics and AI on the lakehouse</text></svg>
+        stroke-width="10" stroke-linecap="round"/></g><text x="220" y="118" font-family="Avenir Next" font-size="72" font-weight="600" fill="#0E2A33">Lakehouse</text><text x="596.8475" y="118" font-family="Avenir Next" font-size="72" font-weight="500" fill="#D9531E">Analytics</text><text x="222" y="170" font-family="Avenir Next" font-size="30" font-weight="400" fill="#5C6E75">Genie, Dashboards and Semantics on the Lakehouse</text></svg>

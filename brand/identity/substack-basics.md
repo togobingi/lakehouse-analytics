@@ -13,7 +13,7 @@ Lakehouse Analytics
 Short description (the one-liner under the name):
 
 ```text
-BI, semantics and AI on the lakehouse. Practical notes from the field, once a month.
+Genie, Dashboards and Semantics on the Lakehouse. Practical notes from the field, once a month.
 ```
 
 ## About page

@@ -22,7 +22,7 @@ MIST = "#CDEDE8"
 SAND = "#F5EFE6"
 SLATE = "#5C6E75"
 
-TAGLINE = "BI, semantics and AI on the lakehouse"
+TAGLINE = "Genie, Dashboards and Semantics on the Lakehouse"
 
 
 def text_width(text, size, weight):
@@ -103,7 +103,7 @@ def build():
              + f'<text x="600" y="830" text-anchor="middle" font-family="{FONT}" '
                f'font-size="132" font-weight="500" fill="{EMBER}">Analytics</text>'
              + f'<text x="600" y="930" text-anchor="middle" font-family="{FONT}" '
-               f'font-size="44" font-weight="400" fill="{MIST}">{TAGLINE}</text>')
+               f'font-size="40" font-weight="400" fill="{MIST}">{TAGLINE}</text>')
     write("cover", svg(s, s, cover, bg=DEEP_LAKE), s)
 
     # Email banner: 1100x220 per Substack, exported at 2x.

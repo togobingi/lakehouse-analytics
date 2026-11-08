@@ -1,0 +1,40 @@
+{
+  "video": "~/Desktop/Lakehouse_DBSQL.gif",
+  "start": 0.8,
+  "end": 34.6,
+  "hold": 3.5,
+  "fps": 10,
+  "out": "issues/2026-10/assets/lakehouse-dbsql-dashboard.gif",
+  "title": "Sunny Bay dashboard on the |Lakehouse",
+  "sub": "DBSQL Serverless, 58M sales rows, same 4 clicks, played at 2x",
+  "label": "Lakehouse",
+  "badges": [
+    {
+      "at": 9.5,
+      "until": 17.8,
+      "text": "click 1 of 4 &middot; data in <b>6.4 s</b>"
+    },
+    {
+      "at": 17.8,
+      "until": 26.7,
+      "text": "click 2 of 4 &middot; data in <b>5.1 s</b>"
+    },
+    {
+      "at": 26.7,
+      "until": 33.5,
+      "text": "click 3 of 4 &middot; data in <b>6.5 s</b>"
+    },
+    {
+      "at": 33.5,
+      "until": 34.6,
+      "text": "click 4 of 4 &middot; data in <b>4.7 s</b>"
+    },
+    {
+      "at": 34.6,
+      "text": "4 clicks &middot; <b>22.7 s</b> waiting for data"
+    }
+  ],
+  "speed": 2,
+  "colors": 128,
+  "dither": "none"
+}

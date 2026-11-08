@@ -1,0 +1,112 @@
+/* Lakehouse Analytics explainer kit. Colors and fonts mirror brand/identity/palette.md
+   and fonts.md; change them there first, then here. */
+
+:root {
+  --deep-lake: #0E2A33;
+  --deep-lake-2: #12343F;   /* raised surface on Deep Lake */
+  --deep-lake-3: #0A1F26;   /* sunken surface (terminal, file tree) */
+  --ember: #FF7A45;
+  --ember-dark: #D9531E;
+  --lagoon: #22B0A0;
+  --mist: #CDEDE8;
+  --sand: #F5EFE6;
+  --slate: #5C6E75;
+  --line: rgba(205, 237, 232, 0.14);  /* Mist at low opacity: borders, gridlines */
+  --sans: "Avenir Next", "Nunito Sans", system-ui, sans-serif;
+  --mono: "SF Mono", Menlo, ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 1200px; height: 675px; overflow: hidden;
+  background: radial-gradient(120% 90% at 70% 0%, #164452 0%, var(--deep-lake) 55%);
+  color: var(--mist); font-family: var(--sans); font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stage { position: absolute; inset: 0; padding: 26px 32px; }
+
+/* Header: logo + title, one accent word in Ember ("Parquet <em>v2</em>"). */
+.header { display: flex; align-items: center; gap: 12px; height: 40px; }
+.header img { width: 30px; height: 30px; }
+.header h1 { font-size: 24px; font-weight: 600; color: var(--sand); letter-spacing: -0.2px; }
+.header h1 em { font-style: normal; color: var(--ember); }
+.header .sub { margin-left: auto; font-size: 13px; color: var(--slate); }
+
+/* Footer wordmark, bottom right, quiet. */
+.footer { position: absolute; right: 32px; bottom: 18px; font-size: 12px; color: var(--slate); }
+.footer b { color: var(--mist); font-weight: 600; }
+
+/* Terminal window. Put one <div class="ln"><span data-type="..."></span></div> per line. */
+.term {
+  position: absolute; background: var(--deep-lake-3); border: 1px solid var(--line);
+  border-radius: 10px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35); overflow: hidden;
+  font-family: var(--mono); font-size: 13px; line-height: 21px;
+}
+.term .bar { display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+.term .bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--ember); }
+.term .bar i:nth-child(2) { background: #F5C451; }
+.term .bar i:nth-child(3) { background: var(--lagoon); }
+.term .bar span { margin-left: auto; color: var(--slate); font-size: 11px; }
+.term .body { padding: 10px 14px; }
+.term .ln { white-space: pre; color: var(--mist); min-height: 21px; }
+.term .ln.cmd::before { content: "$ "; color: var(--slate); }
+.term .ok { color: var(--lagoon); }
+.term .ok::before { content: "\2713  "; }
+.term .dim { color: var(--slate); }
+.term .dim::before { content: "\2192  "; }
+.caret::after { content: ""; display: inline-block; width: 7px; height: 14px; margin-left: 1px;
+  vertical-align: -2px; background: var(--ember); }
+
+/* File tree panel (same chrome as the terminal). */
+.tree { position: absolute; background: var(--deep-lake-3); border: 1px solid var(--line);
+  border-radius: 10px; padding: 12px 14px; font-family: var(--mono); font-size: 13px; line-height: 22px; }
+.tree .root { color: var(--slate); }
+.tree .hl { color: var(--ember); }
+
+/* Diagram primitives. Position with inline left/top/width (absolute). */
+.group { position: absolute; border: 1px dashed var(--line); border-radius: 12px; }
+.group.solid { border: 1.5px solid var(--ember); background: rgba(255, 122, 69, 0.04); }
+.group > .label { position: absolute; left: 12px; top: 9px; font-size: 12px; font-weight: 600; color: var(--sand); }
+.group > .label.bottom { top: auto; bottom: 9px; }
+
+.box { position: absolute; background: var(--deep-lake-2); border: 1px solid var(--line);
+  border-radius: 9px; padding: 9px 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); }
+.box .t { font-size: 13px; font-weight: 600; color: var(--sand); text-align: center; }
+.box .s { font-size: 11px; color: var(--slate); text-align: center; margin-top: 2px; }
+.box.accent { border-color: var(--ember); }
+.box.active { border-color: var(--ember); box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.18); }
+.box.lagoon { border-color: var(--lagoon); }
+
+.chips { display: flex; gap: 6px; justify-content: center; margin-top: 7px; flex-wrap: wrap; }
+.chip { font-size: 10.5px; padding: 3px 7px; border-radius: 5px; border: 1px solid var(--line); color: var(--mist); }
+.chip.on { border-color: var(--ember); color: var(--sand); }
+
+/* Tiles: row of small icon+label cards (like "LLM  MCP  Skills  Tools"). */
+.tiles { display: flex; gap: 8px; }
+.tile { width: 62px; padding: 7px 0 6px; border-radius: 7px; background: var(--deep-lake-3);
+  border: 1px solid var(--line); text-align: center; font-size: 11.5px; font-weight: 600; color: var(--sand); }
+.tile .ic { display: block; font-size: 14px; color: var(--ember); margin-bottom: 2px; }
+
+/* Status badge (green check on a connector). */
+.badge { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: var(--lagoon);
+  color: var(--deep-lake); font-size: 11px; font-weight: 700; text-align: center; line-height: 18px; }
+
+/* Connectors: one full-stage SVG layer under the boxes. */
+svg.wires { position: absolute; inset: 0; width: 1200px; height: 675px; pointer-events: none; }
+svg.wires path, svg.wires polyline, svg.wires line { fill: none; stroke: var(--ember); stroke-width: 1.6; }
+svg.wires .lagoon { stroke: var(--lagoon); }
+svg.wires .muted { stroke: var(--slate); }
+
+/* Bars for simple charts (use with data-grow). */
+.bar-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.bar-row .name { width: 120px; color: var(--mist); text-align: right; }
+.bar-row .bar { height: 22px; border-radius: 4px; background: var(--slate); }
+.bar-row .bar.ember { background: var(--ember); }
+.bar-row .bar.lagoon { background: var(--lagoon); }
+.bar-row .val { font-family: var(--mono); font-size: 12.5px; color: var(--sand); }
+
+/* Caption line at the bottom of a scene. */
+.caption { position: absolute; left: 32px; bottom: 18px; font-size: 14px; color: var(--mist); }
+.caption em { font-style: normal; color: var(--ember); }

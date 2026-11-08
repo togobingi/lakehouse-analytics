@@ -1,0 +1,9 @@
+# macOS / tooling
+.DS_Store
+.isaac/
+node_modules/
+
+# Research notes are built from internal sources (Slack, roadmap discussions).
+# This repo is public: keep them local only. Only public-safe drafts and assets are committed.
+issues/*/research.md
+issues/*/selection.md

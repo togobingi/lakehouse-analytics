@@ -1,0 +1,129 @@
+<!doctype html>
+<!-- Parquet v2 explainer. Render: node skills/aibi-substack-gif/render/render.mjs issues/2026-10/assets/src/parquet-v2.html --out issues/2026-10/assets/parquet-v2.gif
+     Facts (public): https://learn.microsoft.com/en-us/azure/databricks/tables/features/parquet-v2
+     The page diagram is simplified on purpose (labelled in the caption). Databricks publishes no benchmark numbers;
+     the "our test" numbers are our own run (sandbox/lakehouse-rt-demo/parquet_v2_test.py, 2026-11-08):
+     samples.tpch.lineitem copied as v1 and v2, zstd, OPTIMIZEd: 742.2 MB -> 705.6 MB (scan speed not shown: no measurable difference at this size). -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/skills/aibi-substack-gif/render/brand.css">
+<script>window.SCENE = { duration: 16, fps: 15, hold: 3 };</script>
+<script src="/skills/aibi-substack-gif/render/timeline.js"></script>
+<style>
+  .page { position: absolute; top: 0; width: 96px; height: 70px; padding: 0; overflow: hidden; }
+  .page .t { margin-top: 14px; }
+  .page .hdr { font-family: var(--mono); font-size: 10px; color: var(--deep-lake); background: var(--lagoon);
+    padding: 3px 0; text-align: center; }
+  .page.v2 .t { margin-top: 8px; }
+  .page.skipped > * { opacity: 0.3; }  /* children: the box itself carries the fade-in opacity */
+  .page.skipped { border-style: dashed; }
+  .page.read { border-color: var(--ember); box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.2); }
+  .row { position: absolute; left: 650px; width: 520px; height: 70px; }
+  .tag { position: absolute; font-size: 12px; font-family: var(--mono); }
+  .tag.ember { color: var(--ember); }
+  .tag.lagoon { color: var(--lagoon); }
+  .rowlabel { position: absolute; left: 552px; font-size: 14px; font-weight: 600; color: var(--sand); }
+  .rowlabel small { display: block; font-size: 11px; font-weight: 400; color: var(--slate); margin-top: 2px; }
+  .query { position: absolute; left: 650px; top: 104px; font-family: var(--mono); font-size: 12.5px;
+    color: var(--sand); background: var(--deep-lake-3); border: 1px solid var(--ember); border-radius: 7px; padding: 6px 10px; }
+  .query b { color: var(--ember); font-weight: 400; }
+  .adds { position: absolute; left: 32px; top: 356px; width: 470px; height: 236px; background: var(--deep-lake-3);
+    border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .adds h2 { font-size: 13px; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+  .adds .it { display: flex; gap: 10px; align-items: baseline; font-size: 14px; color: var(--mist); margin-bottom: 11px; }
+  .adds .it i { font-style: normal; color: var(--lagoon); font-weight: 700; }
+  .adds .it b { color: var(--sand); font-weight: 600; }
+  .adds .ph { position: absolute; left: 16px; right: 16px; top: 14px; }
+  .adds p { font-size: 14px; line-height: 21px; color: var(--mist); margin-bottom: 9px; }
+  .adds p b { color: var(--sand); font-weight: 600; }
+  .adds p.note { font-size: 12.5px; color: var(--slate); }
+  .big { display: flex; align-items: baseline; gap: 12px; margin: 2px 0 8px; }
+  .big span { font-size: 44px; font-weight: 600; color: var(--lagoon); letter-spacing: -1px; }
+  .big small { font-size: 14px; color: var(--sand); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="header" data-at="0">
+    <img src="/brand/identity/logo-transparent-dark.svg" alt="">
+    <h1>Parquet <em>v2</em> on Databricks</h1>
+  </div>
+
+  <!-- Left: the SQL a reader would run -->
+  <div class="term" style="left:32px; top:86px; width:470px; height:254px;" data-at="0.2">
+    <div class="bar"><i></i><i></i><i></i><span>sql</span></div>
+    <div class="body">
+      <div class="ln cmd" data-at="0.5"><span data-type="ALTER TABLE sales SET TBLPROPERTIES (" data-at="0.5" data-cps="26"></span></div>
+      <div class="ln" data-at="1.9"><span data-type="  'delta.parquet.format.version' = '2.12.0')" data-at="1.9" data-cps="26"></span></div>
+      <div class="ln ok" data-at="3.8">new files are written as Parquet v2</div>
+      <div class="ln" style="min-height:10px"></div>
+      <div class="ln cmd" data-at="7.0"><span data-type="REORG TABLE sales APPLY (" data-at="7.0" data-cps="24"></span></div>
+      <div class="ln" data-at="8.1"><span data-type="  SET PARQUET (FORMAT_VERSION = '2.12.0'))" data-at="8.1" data-cps="24"></span></div>
+      <div class="ln dim" data-at="9.9">optional: rewrite existing files (DBR 18.2+)</div>
+      <div class="ln ok" data-at="10.5">old files upgraded, no data changes</div>
+    </div>
+  </div>
+
+  <!-- Left bottom: the problem, then what v2 adds, then what you get -->
+  <div class="adds" data-at="0.4">
+    <div class="ph" data-at="0.6" data-until="7.3">
+      <h2>The problem</h2>
+      <p>Parquet v1 keeps <b>min / max only in the file footer</b>, one set per row group.</p>
+      <p>A filter on one day still has to <b>read and decompress every page</b> of that column chunk.</p>
+      <p class="note">Delta's file stats already skip whole files. This is about the pages inside a file.</p>
+    </div>
+    <div class="ph" data-at="7.7" data-until="12.9">
+      <h2>What v2 adds</h2>
+      <div class="it" data-at="8.0"><i>1</i><span><b>Page headers with stats and indexes</b>, so a reader can skip pages inside a file</span></div>
+      <div class="it" data-at="8.5"><i>2</i><span><b>Newer encodings</b> for integer and string columns</span></div>
+      <div class="it" data-at="9.0"><i>3</i><span><b>INT64 timestamps</b> instead of INT96</span></div>
+      <p class="note" data-at="9.5">The footer stays: it still holds the schema and row groups.</p>
+    </div>
+    <div class="ph" data-at="13.3">
+      <h2>What you get &middot; our test</h2>
+      <div class="big"><span data-count="0:4.9" data-decimals="1" data-prefix="-" data-at="13.6" data-suffix="%"></span><small>storage</small></div>
+      <p data-at="14.4">Same table rewritten as v2: <b>742 MB → 706 MB</b> (TPC-H lineitem, zstd).</p>
+    </div>
+  </div>
+
+  <!-- Right: one column chunk, read with a date filter -->
+  <div class="group" style="left:530px; top:86px; width:638px; height:506px;" data-at="0.6">
+    <span class="label bottom">One column chunk, simplified</span>
+  </div>
+  <div class="query" data-at="2.8">SELECT … <b>WHERE</b> order_date = '2026-10-15'</div>
+
+  <svg class="wires">
+    <path data-draw data-at="3.3" data-dur="0.6" d="M650 214 H1064"/>
+    <path data-draw data-at="3.8" data-dur="0.25" d="M698 214 V230"/>
+    <path data-draw data-at="3.9" data-dur="0.25" d="M804 214 V230"/>
+    <path data-draw data-at="4.0" data-dur="0.25" d="M910 214 V230"/>
+    <path data-draw data-at="4.1" data-dur="0.25" d="M1016 214 V230"/>
+    <path data-draw data-at="6.0" data-dur="0.6" class="lagoon" d="M650 414 H1016 V430"/>
+  </svg>
+
+  <!-- Parquet v1 row -->
+  <div class="rowlabel" style="top:240px;" data-at="1.0">Parquet v1<small>stats in footer</small></div>
+  <div class="row" style="top:230px;">
+    <div class="box page" style="left:0" data-at="1.1" data-class="read" data-class-at="4.2"><div class="t">Page 1</div><div class="s">Jul</div></div>
+    <div class="box page" style="left:106px" data-at="1.2" data-class="read" data-class-at="4.3"><div class="t">Page 2</div><div class="s">Aug</div></div>
+    <div class="box page" style="left:212px" data-at="1.3" data-class="read" data-class-at="4.4"><div class="t">Page 3</div><div class="s">Sep</div></div>
+    <div class="box page" style="left:318px" data-at="1.4" data-class="read" data-class-at="4.5"><div class="t">Page 4</div><div class="s">Oct</div></div>
+    <div class="box page" style="left:424px; width:80px; border-style:dashed" data-at="1.6"><div class="t">Footer</div><div class="s">min / max per row group</div></div>
+  </div>
+  <div class="tag ember" style="left:650px; top:310px;" data-at="4.6">reads 4 of 4 pages</div>
+
+  <!-- Parquet v2 row -->
+  <div class="rowlabel" style="top:440px;" data-at="4.8">Parquet v2<small>stats per page</small></div>
+  <div class="row" style="top:430px;">
+    <div class="box page v2" style="left:0" data-at="4.9" data-class="skipped" data-class-at="6.2"><div class="hdr">07-01…07-31</div><div class="t">Page 1</div></div>
+    <div class="box page v2" style="left:106px" data-at="5.0" data-class="skipped" data-class-at="6.3"><div class="hdr">08-01…08-31</div><div class="t">Page 2</div></div>
+    <div class="box page v2" style="left:212px" data-at="5.1" data-class="skipped" data-class-at="6.4"><div class="hdr">09-01…09-30</div><div class="t">Page 3</div></div>
+    <div class="box page v2" style="left:318px" data-at="5.2" data-class="read" data-class-at="6.6"><div class="hdr">10-01…10-31</div><div class="t">Page 4</div></div>
+    <div class="box page" style="left:424px; width:80px; border-style:dashed" data-at="5.4"><div class="t" style="margin-top:14px">Footer</div><div class="s">schema, row groups</div></div>
+  </div>
+  <div class="tag lagoon" style="left:650px; top:510px;" data-at="6.7">skips 3 pages from the header stats, reads 1</div>
+</div>
+
+</body>
+</html>

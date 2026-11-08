@@ -1,0 +1,12 @@
+{
+  "name": "aibi-substack-gif-render",
+  "private": true,
+  "type": "module",
+  "description": "Renders Lakehouse Analytics explainer scenes (HTML + timeline.js) to GIF/MP4",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.56.0"
+  }
+}

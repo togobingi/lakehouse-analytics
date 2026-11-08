@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- Brand frame for screen recordings, rendered by frame.mjs as PNG layers.
+     ?layer=bg     header (logo, title, subtitle) + the screen window the recording sits in
+     ?layer=mark   transparent: engine watermark pill, bottom right of the screen
+     ?layer=badge  transparent: timed badge pill, bottom left of the screen (&text=...)
+     Title: plain text; the part after "|" is the Ember accent ("Lakehouse|//RT"). -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/skills/aibi-substack-gif/render/brand.css">
+<style>
+  html, body { width: var(--w); height: var(--h); }
+  html.clear, html.clear body { background: transparent; }
+  .screen { position: absolute; left: var(--sx); top: var(--sy); width: var(--sw); height: var(--sh);
+    border-radius: 10px; box-shadow: 0 0 0 1px var(--line), 0 18px 44px rgba(0, 0, 0, 0.45); background: #fff; }
+  .pill { position: absolute; display: flex; align-items: center; gap: 8px; padding: 7px 13px 7px 9px;
+    border-radius: 999px; background: rgba(14, 42, 51, 0.92); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    font-size: 17px; font-weight: 600; color: var(--sand); white-space: nowrap; }
+  .pill img { width: 22px; height: 22px; }
+  .pill em { font-style: normal; color: var(--ember); }
+  .mark { right: calc(var(--w) - var(--sx) - var(--sw) + 14px); bottom: calc(var(--h) - var(--sy) - var(--sh) + 14px); }
+  .stamp { left: calc(var(--sx) + 14px); bottom: calc(var(--h) - var(--sy) - var(--sh) + 14px);
+    padding: 7px 14px; font-family: var(--mono); font-size: 15px; font-weight: 500; border: 1.5px solid var(--lagoon); }
+  .stamp b { color: var(--lagoon); font-weight: 600; }
+  .header { position: absolute; left: var(--sx); top: 16px; right: var(--sx); }
+  .header .sub { color: var(--mist); font-size: 14px; }
+</style>
+</head>
+<body>
+<script>
+  const q = new URLSearchParams(location.search);
+  const num = (k, d) => parseFloat(q.get(k) ?? d);
+  const [W, H, SX, SY, SW, SH] = [num("w", 1200), num("h", 720), num("sx", 40), num("sy", 72), num("sw", 1120), num("sh", 630)];
+  Object.entries({ w: W, h: H, sx: SX, sy: SY, sw: SW, sh: SH })
+    .forEach(([k, v]) => document.documentElement.style.setProperty(`--${k}`, `${v}px`));
+  const accent = (s) => { const [a, b] = (s || "").split("|"); return b === undefined ? a : `${a}<em>${b}</em>`; };
+  const logo = '<img src="/brand/identity/logo-transparent-dark.svg" alt="">';
+  const layer = q.get("layer") || "bg";
+  if (layer !== "bg") document.documentElement.classList.add("clear");
+  document.body.innerHTML = {
+    bg: `<div class="header">${logo}<h1>${accent(q.get("title"))}</h1><span class="sub">${q.get("sub") || ""}</span></div>
+         <div class="screen"></div>`,
+    mark: `<div class="pill mark">${logo}<span>${accent(q.get("label"))}</span></div>`,
+    badge: `<div class="pill stamp">${q.get("text") || ""}</div>`,
+  }[layer];
+</script>
+</body>
+</html>

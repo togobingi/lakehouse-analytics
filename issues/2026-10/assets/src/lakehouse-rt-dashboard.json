@@ -1,0 +1,40 @@
+{
+  "video": "~/Desktop/Lakehouse_RT.gif",
+  "start": 1.0,
+  "end": 22.0,
+  "hold": 3.5,
+  "fps": 10,
+  "out": "issues/2026-10/assets/lakehouse-rt-dashboard.gif",
+  "title": "Sunny Bay dashboard on |Lakehouse//RT",
+  "sub": "58M sales rows, 4 filter clicks, played at 2x",
+  "label": "Lakehouse|//RT",
+  "badges": [
+    {
+      "at": 5.9,
+      "until": 11.1,
+      "text": "click 1 of 4 &middot; data in <b>2.4 s</b>"
+    },
+    {
+      "at": 11.1,
+      "until": 16.5,
+      "text": "click 2 of 4 &middot; data in <b>2.4 s</b>"
+    },
+    {
+      "at": 16.5,
+      "until": 21.3,
+      "text": "click 3 of 4 &middot; data in <b>3.5 s</b>"
+    },
+    {
+      "at": 21.3,
+      "until": 22.0,
+      "text": "click 4 of 4 &middot; data in <b>1.8 s</b>"
+    },
+    {
+      "at": 22.0,
+      "text": "4 clicks &middot; <b>10.1 s</b> waiting for data"
+    }
+  ],
+  "speed": 2,
+  "colors": 128,
+  "dither": "none"
+}
